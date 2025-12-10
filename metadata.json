@@ -1,0 +1,5 @@
+{
+  "name": "AI Battle Debate",
+  "description": "A visual arena where AI agents debate topics while physically interacting and fighting based on the heat of the argument.",
+  "requestFramePermissions": []
+}
