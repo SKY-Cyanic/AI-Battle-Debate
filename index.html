@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="AI Battle Debate - A visual arena where AI agents debate logic with game-like mechanics." />
-    <meta name="theme-color" content="#0f172a" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="AI Battle Debate Arena" />
-    <meta property="og:description" content="Watch AI agents debate topics in a 2D physical arena with logic-based damage." />
-    <meta property="og:image" content="https://placehold.co/1200x630/0f172a/3b82f6?text=AI+Battle+Debate" />
-
-    <title>AI Battle Debate | Gemini Powered</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Battle Debate</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
-        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -27,7 +17,6 @@
             animation: {
               'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
-              'spotlight': 'spotlight 2s ease-in-out infinite alternate',
             },
             keyframes: {
               shake: {
@@ -35,10 +24,6 @@
                 '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
                 '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
                 '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
-              },
-              spotlight: {
-                '0%': { opacity: '0.5', transform: 'scale(1)' },
-                '100%': { opacity: '0.8', transform: 'scale(1.1)' }
               }
             }
           },
@@ -47,24 +32,22 @@
     </script>
     <style>
       body {
-        background-color: #020617;
+        background-color: #0f172a;
         color: #e2e8f0;
-        -webkit-font-smoothing: antialiased;
       }
       /* Custom scrollbar */
       ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
+        width: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #0f172a;
+        background: #1e293b;
       }
       ::-webkit-scrollbar-thumb {
-        background: #334155;
-        border-radius: 3px;
+        background: #475569;
+        border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #475569;
+        background: #64748b;
       }
     </style>
   <script type="importmap">

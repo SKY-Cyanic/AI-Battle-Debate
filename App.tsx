@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Square, RefreshCw, Swords, Archive, Dice5, Globe, Zap } from 'lucide-react';
+import { Play, Square, RefreshCw, Swords, Archive, Dice5, Globe } from 'lucide-react';
 import Arena from './components/Arena';
 import ChatLog from './components/ChatLog';
 import DebateSummary from './components/DebateSummary';
@@ -203,54 +203,54 @@ function App() {
   }, [isDebating, turnIndex, agents, topic, history, winner, language]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30 flex flex-col">
+    <div className="min-h-screen bg-slate-950 text-slate-200 p-4 md:p-8 font-sans selection:bg-blue-500/30">
       {summary && <DebateSummary summary={summary} onClose={() => setSummary(null)} language={language} />}
       
-      <main className="flex-grow p-4 md:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
+      <div className="max-w-6xl mx-auto space-y-6">
         
         {/* Header */}
-        <header className="flex flex-col lg:flex-row justify-between items-center gap-6 border-b border-slate-800 pb-6 bg-slate-950/50 backdrop-blur-sm sticky top-0 z-10 pt-2">
-          <div className="flex items-center gap-3 self-start lg:self-center">
-             <div className="bg-gradient-to-tr from-blue-600 to-indigo-600 p-3 rounded-xl shadow-lg shadow-blue-900/20 ring-1 ring-white/10">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-slate-800 pb-6">
+          <div className="flex items-center gap-3">
+             <div className="bg-gradient-to-tr from-blue-600 to-purple-600 p-3 rounded-lg shadow-lg shadow-blue-900/20">
                <Swords size={32} className="text-white" />
              </div>
              <div>
-               <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-300">
+               <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                  {t.title}
                </h1>
-               <p className="text-slate-500 text-xs md:text-sm font-medium tracking-wide">{t.subtitle}</p>
+               <p className="text-slate-500 text-sm">{t.subtitle}</p>
              </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
              {/* Language Switcher */}
             <button 
               onClick={toggleLanguage}
               disabled={isDebating}
-              className={`w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 rounded-lg border text-sm font-bold transition-all ${
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-bold transition-all ${
                 language === 'KO' 
-                ? 'bg-blue-950/40 border-blue-500/30 text-blue-300 hover:bg-blue-900/60' 
-                : 'bg-indigo-950/40 border-indigo-500/30 text-indigo-300 hover:bg-indigo-900/60'
-              } ${isDebating ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}`}
+                ? 'bg-blue-900/50 border-blue-500 text-blue-200' 
+                : 'bg-purple-900/50 border-purple-500 text-purple-200'
+              } ${isDebating ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
             >
                <Globe size={16} />
-               <span>{language === 'KO' ? 'KO' : 'EN'}</span>
+               <span>{language === 'KO' ? '한국어 (KO)' : 'ENGLISH (EN)'}</span>
             </button>
 
-            <div className="flex flex-col sm:flex-row w-full lg:w-auto gap-2">
-              <div className="flex w-full shadow-sm">
+            <div className="flex flex-col sm:flex-row w-full md:w-auto gap-2">
+              <div className="flex w-full">
                 <input 
                   type="text" 
                   placeholder={t.placeholder}
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   disabled={isDebating}
-                  className="flex-1 min-w-0 bg-slate-900 border border-slate-700 rounded-l-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all placeholder:text-slate-600 text-sm md:text-base"
+                  className="flex-1 min-w-[200px] bg-slate-900 border border-slate-700 rounded-l-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
                 />
                 <button
                   onClick={suggestTopic}
                   disabled={isDebating}
-                  className="bg-slate-800 border-y border-r border-slate-700 hover:bg-slate-700 px-4 rounded-r-lg text-slate-400 hover:text-white transition-colors disabled:opacity-50"
+                  className="bg-slate-800 border border-l-0 border-slate-700 hover:bg-slate-700 px-3 rounded-r-lg text-slate-400 hover:text-white transition-colors"
                   title={t.randomTopic}
                 >
                   <Dice5 size={20} />
@@ -262,21 +262,21 @@ function App() {
                    <button 
                     onClick={startDebate}
                     disabled={!topic.trim()}
-                    className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-semibold flex justify-center items-center gap-2 transition-all shadow-lg shadow-blue-900/30 whitespace-nowrap active:translate-y-0.5"
+                    className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-semibold flex justify-center items-center gap-2 transition-all shadow-lg shadow-blue-900/30 whitespace-nowrap"
                   >
                     <Play size={18} fill="currentColor" /> {t.start}
                   </button>
                 ) : (
                   <button 
                     onClick={stopDebate}
-                    className="flex-1 sm:flex-none bg-red-600 hover:bg-red-500 text-white px-6 py-2 rounded-lg font-semibold flex justify-center items-center gap-2 transition-all shadow-lg shadow-red-900/30 active:translate-y-0.5"
+                    className="flex-1 sm:flex-none bg-red-600 hover:bg-red-500 text-white px-6 py-2 rounded-lg font-semibold flex justify-center items-center gap-2 transition-all shadow-lg shadow-red-900/30"
                   >
                     <Square size={18} fill="currentColor" /> {t.stop}
                   </button>
                 )}
                 <button 
                   onClick={resetDebate}
-                  className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 rounded-lg transition-all border border-slate-700 active:bg-slate-600"
+                  className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 rounded-lg transition-all"
                   title={t.reset}
                 >
                   <RefreshCw size={18} />
@@ -284,38 +284,31 @@ function App() {
               </div>
             </div>
           </div>
-        </header>
+        </div>
 
         {/* Winner Banner */}
         {winner && (
-          <div className="bg-gradient-to-r from-yellow-900/20 to-amber-900/20 border border-yellow-500/50 text-yellow-100 p-6 rounded-2xl text-center flex flex-col items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-500">
-            <h2 className="text-3xl font-black tracking-tight flex items-center gap-3">
-               <span>🏆</span> 
-               <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-amber-400">
-                 {winner === AgentRole.PRO ? t.proName : t.conName} {t.winner}
-               </span>
-               <span>🏆</span>
-            </h2>
-            <p className="text-yellow-200/70 max-w-xl mx-auto">{t.winnerDesc}</p>
+          <div className="bg-yellow-500/10 border border-yellow-500/50 text-yellow-200 p-4 rounded-xl text-center animate-pulse flex flex-col items-center gap-2">
+            <h2 className="text-2xl font-bold">🏆 {winner === AgentRole.PRO ? t.proName : t.conName} {t.winner} 🏆</h2>
+            <p className="text-yellow-200/60">{t.winnerDesc}</p>
             {!summary && !isGeneratingSummary && (
-               <button onClick={handleGenerateSummary} className="mt-2 text-sm bg-yellow-600 hover:bg-yellow-500 px-6 py-2 rounded-full text-white shadow-lg shadow-yellow-900/40 font-semibold transition-all hover:scale-105">
+               <button onClick={handleGenerateSummary} className="text-sm bg-yellow-600/50 hover:bg-yellow-600 px-4 py-1 rounded text-white border border-yellow-500/50">
                   {t.analysis}
                </button>
             )}
-            {isGeneratingSummary && <p className="text-sm text-yellow-500 animate-pulse font-mono">{t.analyzing}</p>}
+            {isGeneratingSummary && <p className="text-xs text-yellow-500 animate-pulse">{t.analyzing}</p>}
           </div>
         )}
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 min-h-[500px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           
           {/* Left Column: Visual Arena */}
-          <section className="space-y-4 flex flex-col">
+          <div className="space-y-4">
              <div className="flex justify-between items-center text-sm font-semibold text-slate-400 px-1">
-               <span className="flex items-center gap-2"><Zap size={14} className="text-blue-400"/> {t.arenaTitle}</span>
-               {isLoading && <span className="text-blue-400 animate-pulse text-xs font-mono uppercase tracking-wider">{t.judgeActive}</span>}
+               <span>{t.arenaTitle}</span>
+               {isLoading && <span className="text-blue-400 animate-pulse">{t.judgeActive}</span>}
              </div>
-             
              <Arena 
                agents={agents} 
                currentSpeakerId={isLoading ? agents[turnIndex % 2].id : null}
@@ -326,44 +319,39 @@ function App() {
              {/* Stats Panel */}
              <div className="grid grid-cols-2 gap-4">
                {agents.map(agent => (
-                 <div key={agent.id} className={`p-4 rounded-xl border transition-all duration-500 ${agent.hp < 30 ? 'bg-red-950/20 border-red-900/50 shadow-[inset_0_0_20px_rgba(220,38,38,0.1)]' : 'bg-slate-900/50 border-slate-800'}`}>
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
-                      <span className="font-mono text-sm font-bold text-slate-200 truncate">
+                 <div key={agent.id} className={`p-4 rounded-xl border transition-colors duration-500 ${agent.hp < 30 ? 'bg-red-950/20 border-red-900/50' : 'bg-slate-900 border-slate-800'}`}>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-mono text-sm font-bold text-slate-300">
                         {agent.role === AgentRole.PRO ? t.proName : t.conName}
                       </span>
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full uppercase font-bold tracking-wider border ${
-                        agent.emotion === 'angry' ? 'bg-red-900/30 border-red-800 text-red-400' : 
-                        agent.emotion === 'confident' ? 'bg-green-900/30 border-green-800 text-green-400' : 
-                        'bg-slate-800 border-slate-700 text-slate-400'
+                      <span className={`text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 ${
+                        agent.emotion === 'angry' ? 'text-red-400' : 
+                        agent.emotion === 'confident' ? 'text-green-400' : 'text-slate-400'
                       }`}>
                         {agent.emotion}
                       </span>
                     </div>
-                    
-                    {/* HP Bar */}
-                    <div className="w-full h-3 bg-slate-950 rounded-full overflow-hidden shadow-inner ring-1 ring-white/5">
+                    <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
                        <div 
-                         className={`h-full transition-all duration-500 ease-out ${agent.hp > 50 ? 'bg-gradient-to-r from-green-600 to-emerald-400' : agent.hp > 20 ? 'bg-gradient-to-r from-yellow-600 to-amber-400' : 'bg-gradient-to-r from-red-600 to-rose-500'}`}
+                         className={`h-full transition-all duration-300 ${agent.hp > 50 ? 'bg-green-500' : agent.hp > 20 ? 'bg-yellow-500' : 'bg-red-500'}`}
                          style={{ width: `${agent.hp}%`}} 
                        />
                     </div>
-                    <div className="mt-2 text-xs text-slate-500 flex justify-between font-mono">
+                    <div className="mt-2 text-xs text-slate-500 flex justify-between">
                       <span>{t.hp}: {Math.max(0, agent.hp)}%</span>
-                      <span className="capitalize text-slate-400">{agent.lastAction === 'attack' ? t.attack : (agent.lastAction === 'defend' ? t.defend : agent.lastAction)}</span>
+                      <span className="capitalize">{agent.lastAction === 'attack' ? t.attack : (agent.lastAction === 'defend' ? t.defend : agent.lastAction)}</span>
                     </div>
                     
                     {/* Inventory Display */}
-                    <div className="mt-4 pt-3 border-t border-slate-800/50">
-                      <div className="text-[10px] text-slate-600 mb-2 uppercase tracking-widest font-bold">{t.inventory}</div>
-                      <div className="flex gap-1.5 flex-wrap min-h-[1.5rem]">
-                        {agent.inventory.length === 0 && <span className="text-[10px] text-slate-700 italic">{t.empty}</span>}
+                    <div className="mt-3 pt-3 border-t border-slate-800">
+                      <div className="text-[10px] text-slate-500 mb-1 uppercase tracking-wider">{t.inventory}</div>
+                      <div className="flex gap-1 flex-wrap h-6">
+                        {agent.inventory.length === 0 && <span className="text-[10px] text-slate-600 italic">{t.empty}</span>}
                         {agent.inventory.map((item, idx) => (
-                          <div key={idx} className="group relative w-3 h-3 cursor-help">
-                             <div className={`w-full h-full rounded-full transition-transform hover:scale-150 ${
-                                item === 'HEAL_MODULE' ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]' :
-                                item === 'LOGIC_AMPLIFIER' ? 'bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.6)]' :
-                                'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)]'
-                             }`}></div>
+                          <div key={idx} className="w-2 h-2 rounded-full bg-slate-600 hover:scale-150 transition-transform" title={item}>
+                             {item === 'HEAL_MODULE' && <div className="w-full h-full bg-green-500 rounded-full shadow-[0_0_5px_rgba(34,197,94,0.5)]"></div>}
+                             {item === 'LOGIC_AMPLIFIER' && <div className="w-full h-full bg-purple-500 rounded-full shadow-[0_0_5px_rgba(168,85,247,0.5)]"></div>}
+                             {item === 'FACT_CHECKER' && <div className="w-full h-full bg-yellow-500 rounded-full shadow-[0_0_5px_rgba(234,179,8,0.5)]"></div>}
                           </div>
                         ))}
                       </div>
@@ -371,30 +359,23 @@ function App() {
                  </div>
                ))}
              </div>
-          </section>
+          </div>
 
           {/* Right Column: Transcript */}
-          <section className="space-y-4 flex flex-col h-full">
+          <div className="space-y-4">
             <div className="flex justify-between items-center text-sm font-semibold text-slate-400 px-1">
                <span>{t.transcriptTitle}</span>
                {summary && (
-                 <button onClick={() => setSummary(summary)} className="flex items-center gap-1.5 text-xs bg-blue-500/10 text-blue-400 px-3 py-1.5 rounded-full hover:bg-blue-500/20 border border-blue-500/20 transition-colors">
+                 <button onClick={() => setSummary(summary)} className="flex items-center gap-1 text-xs bg-blue-600/20 text-blue-400 px-2 py-1 rounded hover:bg-blue-600/30">
                    <Archive size={12}/> {t.viewSummary}
                  </button>
                )}
              </div>
             <ChatLog history={history} agents={agents} language={language} />
-          </section>
+          </div>
 
         </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="py-6 border-t border-slate-900 bg-slate-950 text-center">
-        <p className="text-slate-600 text-xs font-mono">
-          Powered by <span className="text-slate-400 font-bold">Google Gemini 2.5 Flash</span> • Cloudflare Ready
-        </p>
-      </footer>
+      </div>
     </div>
   );
 }
